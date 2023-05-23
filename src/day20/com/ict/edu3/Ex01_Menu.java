@@ -3,7 +3,13 @@ package day20.com.ict.edu3;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Enumeration;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -13,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-public class Ex01_Menu extends JFrame{
+public class Ex01_Menu extends JFrame implements ActionListener, ItemListener{
 	JPanel jp1,jp2,jp3,jp4,jp5;
 	JButton jb1,jb2;
 	JTextField jtf;
@@ -61,8 +67,8 @@ public class Ex01_Menu extends JFrame{
 		
 		jp4 = new JPanel();
 		bg3 = new ButtonGroup();
-		jrb8 = new JRadioButton("Samll(80%)",true);
-		jrb9 = new JRadioButton("Medum(100%)");
+		jrb8 = new JRadioButton("Samll(80%)");
+		jrb9 = new JRadioButton("Medum(100%)",true);
 		jrb10 = new JRadioButton("Large(120%)");
 		bg3.add(jrb8);
 		bg3.add(jrb9);
@@ -98,7 +104,89 @@ public class Ex01_Menu extends JFrame{
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+		
+		jrb1.addItemListener(this);
+		jrb2.addItemListener(this);
+		jrb3.addItemListener(this);
+		jrb4.addItemListener(this);
+		jrb5.addItemListener(this);
+		jrb6.addItemListener(this);
+		jrb7.addItemListener(this);
+		jrb8.addItemListener(this);
+		jrb9.addItemListener(this);
+		jrb10.addItemListener(this);
+		
+		jb1.addActionListener(this);
+		jb2.addActionListener(this);
+		
+	}	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JButton obj = (JButton)e.getSource();
+			if(obj==jb1) {
+				jtf.setText((int)(price)+"원");
+			}else if(obj == jb2) {
+				jtf.setText("");
+				jrb1.setSelected(true);
+				jrb4.setSelected(true);
+				jrb9.setSelected(true);
+			}
+			
+		
 	}
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			//bg1에 존재하는 요소들을 배열(?)로 만든다.
+			Enumeration<AbstractButton> list1	= bg1.getElements();
+			while (list1.hasMoreElements()) {
+				// bg1에 있는 요소를 꺼내서 JRadioButton으로 형변환
+				AbstractButton abstractButton = (AbstractButton) list1.nextElement();
+				JRadioButton jb = (JRadioButton)abstractButton;
+				if(jb.isSelected()) {
+					if(jb == jrb1) {
+						price = 15000;
+					}else if (jb == jrb2) {
+						price = 20000;
+					}else if(jb == jrb3) {
+						price = 30000;
+					}
+				}
+				
+			}
+			Enumeration<AbstractButton> list2	= bg2.getElements();
+			while (list2.hasMoreElements()) {
+				AbstractButton abstractButton = (AbstractButton) list1.nextElement();
+				JRadioButton jb = (JRadioButton)abstractButton;
+				if(jb.isSelected()) {
+					if(jb == jrb4) {
+						price = price +500;
+					}else if (jb == jrb5) {
+						price = price +1000;
+					}else if(jb == jrb6) {
+						price = price +1500;
+					}else if(jb == jrb7) {
+						price = price +2000;
+					}
+				}
+				
+			}
+			Enumeration<AbstractButton> list3	= bg3.getElements();
+			while (list3.hasMoreElements()) {
+				AbstractButton abstractButton = (AbstractButton) list1.nextElement();
+				JRadioButton jb = (JRadioButton)abstractButton;
+				if(jb.isSelected()) {
+					if(jb == jrb8) {
+						price = price * 0.8;
+					}else if (jb == jrb9) {
+						price = price *1.0;
+					}else if(jb == jrb10) {
+						price = price *1.2;
+					}
+				}
+				
+			}
+			
+		}
 	public static void main(String[] args) {
 		new Ex01_Menu();
 	}
