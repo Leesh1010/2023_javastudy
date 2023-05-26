@@ -37,7 +37,7 @@ public class Ex02_LogIn extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(pg1,"ioginok");
+				cardLayout.show(pg1,"loginok");
 				
 			}
 		});
